@@ -15,7 +15,9 @@ class RequestWantJsonMiddleware
      */
     public function handle($request, Closure $next)
     {
-        $request->headers->add(['Accept' => 'application/json']);
+        if (starts_with($request->getRequestUri(), '/api')) {
+            $request->headers->add(['Accept' => 'application/json']);
+        }
 
         return $next($request);
     }
